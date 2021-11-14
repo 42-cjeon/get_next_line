@@ -6,16 +6,9 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:34 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/14 03:33:18 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/14 15:35:20 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// REMOVE
-#include <stdio.h>
-#include <fcntl.h>
-#include <string.h>
-#include <ctype.h>
-// REMOVE
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -156,32 +149,3 @@ char *get_next_line(int fd)
 	free_buffers(&head);
 	return (NULL);
 }
-/*
-void print(char *str)
-{
-	while(*str && *str != '\n')
-	{
-		if (isprint(*str))
-			printf("%c", *str);
-		else
-			printf(".");
-		str++;
-	}
-	if (*(str) == '\n')
-		printf("\\\n");
-	else
-		printf("%%\n");
-}
-
-int main(void)
-{
-	int f = open("test", O_RDONLY);
-	char *k;
-	while ((k = get_next_line(f)))
-	{
-		print(k);
-		free(k);
-	}
-	return 0;
-}
-*/
