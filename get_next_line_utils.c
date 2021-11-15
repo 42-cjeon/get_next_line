@@ -6,12 +6,10 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:39 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:18:21 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 01:27:41 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "get_next_line_bonus.h"
 
 void	*free_buffers(t_buffer_head **hash_table, t_buffer_head *head, int fd)

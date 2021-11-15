@@ -6,12 +6,10 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:34 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:17:17 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 01:27:31 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "get_next_line_bonus.h"
 
 ssize_t	alloc_and_read_buffer(t_buffer *buffer, int fd)

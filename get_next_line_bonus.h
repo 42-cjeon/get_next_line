@@ -6,7 +6,7 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:31 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:22:47 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 01:27:27 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # ifndef TABLE_SIZE
 #  define TABLE_SIZE 100
 # endif
+
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_buffer {
 	size_t			end;
