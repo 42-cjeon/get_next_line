@@ -6,7 +6,7 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:31 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:18:55 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 01:23:32 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ typedef struct s_buffer {
 }	t_buffer;
 
 typedef struct s_buffer_head {
-	int fd;
-	size_t cursor;
-	t_buffer *buffer;
-	struct s_buffer_head *next;
-} t_buffer_head;
+	int						fd;
+	size_t					cursor;
+	t_buffer				*buffer;
+	struct s_buffer_head	*next;
+}	t_buffer_head;
 
 char			*get_next_line(int fd);
 t_buffer_head	*search_buffer_head(t_buffer_head **hash_table, int fd);
 size_t			get_total_len(t_buffer_head **hash_table, t_buffer_head *head,
-								size_t start, int fd);
+					size_t start, int fd);
 ssize_t			alloc_and_read_buffer(t_buffer *buffer, int fd);
 void			*free_buffers(t_buffer_head **hash_table,
-								t_buffer_head *head, int fd);
+					t_buffer_head *head, int fd);
 t_buffer		*get_buffer(void);
 ssize_t			load_buffer(int fd, t_buffer *buffer);
 size_t			move_next_buffer(t_buffer_head *head, t_buffer **buffer);
 char			*copy_buffer(t_buffer_head **hash_table, t_buffer_head *head,
-								size_t total_len, int fd);
+					size_t total_len, int fd);
 
 #endif
