@@ -6,27 +6,38 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:39 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/14 16:35:46 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 01:18:21 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-void	free_buffers(t_buffer **head)
+void	*free_buffers(t_buffer_head **hash_table, t_buffer_head *head, int fd)
 {
-	t_buffer	*curr;
-	t_buffer	*next;
+	t_buffer		*curr;
+	t_buffer		*next;
+	t_buffer_head	*prev;
 
-	curr = *head;
+	curr = (head)->buffer;
 	while (curr != NULL)
 	{
-		next = (curr)->next_buffer;
+		next = curr->next;
 		free(curr);
 		curr = next;
 	}
-	*head = NULL;
+	if (hash_table[fd % TABLE_SIZE] == head)
+		hash_table[fd % TABLE_SIZE] = head->next;
+	else
+	{
+		prev = hash_table[fd % TABLE_SIZE];
+		while (prev->next != head)
+			prev = prev->next;
+		prev->next = head->next;
+	}
+	free(head);
+	return (NULL);
 }
 
 t_buffer	*get_buffer(void)
@@ -36,9 +47,8 @@ t_buffer	*get_buffer(void)
 	new_buffer = (t_buffer *)malloc(sizeof(t_buffer));
 	if (new_buffer == NULL)
 		return (NULL);
-	new_buffer->cursor = 0;
 	new_buffer->end = 0;
-	new_buffer->next_buffer = NULL;
+	new_buffer->next = NULL;
 	return (new_buffer);
 }
 
@@ -52,34 +62,41 @@ ssize_t	load_buffer(int fd, t_buffer *buffer)
 	return (len);
 }
 
-size_t	move_buffer_head(t_buffer **head)
+size_t	move_next_buffer(t_buffer_head *head, t_buffer **buffer)
 {
 	t_buffer	*next;
 
-	next = (*head)->next_buffer;
-	free(*head);
-	*head = next;
+	next = (*buffer)->next;
+	free(*buffer);
+	head->buffer = next;
+	*buffer = next;
 	return (0);
 }
 
-char	*copy_buffer(t_buffer **head, size_t start, size_t total_len)
+char	*copy_buffer(t_buffer_head **hash_table, t_buffer_head *head,
+						size_t total_len, int fd)
 {
 	char		*str;
 	size_t		i;
+	size_t		start;
+	t_buffer	*buffer;
 
 	str = malloc(sizeof(char) * (total_len + 1));
 	if (str == NULL)
-		return (NULL);
+		return (free_buffers(hash_table, head, fd));
 	str[total_len] = '\0';
 	i = 0;
-	while (head && start <= (*head)->end)
+	buffer = head->buffer;
+	start = head->cursor;
+	while (buffer && start <= buffer->end)
 	{
 		if (i == total_len)
 			break ;
-		if (start == (*head)->end)
-			start = move_buffer_head(head);
+		if (start == buffer->end)
+			start = move_next_buffer(head, &buffer);
 		else
-			str[i++] = (*head)->data[start++];
+			str[i++] = buffer->data[start++];
 	}
+	head->cursor = start;
 	return (str);
 }
