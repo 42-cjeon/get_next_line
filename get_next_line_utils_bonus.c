@@ -6,7 +6,7 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:39 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:27:36 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 13:04:00 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ t_buffer	*get_buffer(void)
 	return (new_buffer);
 }
 
+t_buffer_head	*get_buffer_head(int fd)
+{
+	t_buffer_head	*head;
+
+	head = (t_buffer_head *)malloc(sizeof(t_buffer_head));
+	if (head == NULL)
+		return (NULL);
+	head->buffer = get_buffer();
+	if (head->buffer == NULL)
+	{
+		free(head);
+		return (NULL);
+	}
+	head->next = NULL;
+	head->cursor = 0;
+	head->fd = fd;
+	return (head);
+}
+
 ssize_t	load_buffer(int fd, t_buffer *buffer)
 {
 	ssize_t	len;
@@ -69,32 +88,4 @@ size_t	move_next_buffer(t_buffer_head *head, t_buffer **buffer)
 	head->buffer = next;
 	*buffer = next;
 	return (0);
-}
-
-char	*copy_buffer(t_buffer_head **hash_table, t_buffer_head *head,
-						size_t total_len, int fd)
-{
-	char		*str;
-	size_t		i;
-	size_t		start;
-	t_buffer	*buffer;
-
-	str = malloc(sizeof(char) * (total_len + 1));
-	if (str == NULL)
-		return (free_buffers(hash_table, head, fd));
-	str[total_len] = '\0';
-	i = 0;
-	buffer = head->buffer;
-	start = head->cursor;
-	while (buffer && start <= buffer->end)
-	{
-		if (i == total_len)
-			break ;
-		if (start == buffer->end)
-			start = move_next_buffer(head, &buffer);
-		else
-			str[i++] = buffer->data[start++];
-	}
-	head->cursor = start;
-	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:31 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 01:27:27 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/16 12:48:11 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ ssize_t			load_buffer(int fd, t_buffer *buffer);
 size_t			move_next_buffer(t_buffer_head *head, t_buffer **buffer);
 char			*copy_buffer(t_buffer_head **hash_table, t_buffer_head *head,
 					size_t total_len, int fd);
+t_buffer_head	*get_buffer_head(int fd);
 
 #endif
