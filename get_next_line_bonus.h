@@ -6,7 +6,7 @@
 /*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:31 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/16 12:48:11 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/11/19 21:01:58 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@
 # endif
 
 # ifndef TABLE_SIZE
-#  define TABLE_SIZE 100
+#  define TABLE_SIZE 1
 # endif
 
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_buffer {
+typedef struct s_buffer
+{
 	size_t			end;
 	unsigned char	data[BUFFER_SIZE];
 	struct s_buffer	*next;
 }	t_buffer;
 
-typedef struct s_buffer_head {
+typedef struct s_buffer_head
+{
 	int						fd;
 	size_t					cursor;
 	t_buffer				*buffer;
