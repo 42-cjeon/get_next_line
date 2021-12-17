@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjeon <cjeon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: cjeon <student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:19:31 by cjeon             #+#    #+#             */
-/*   Updated: 2021/11/19 21:01:58 by cjeon            ###   ########.fr       */
+/*   Updated: 2021/12/17 16:01:16 by cjeon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# ifndef TABLE_SIZE
-#  define TABLE_SIZE 1
-# endif
+# define TABLE_SIZE 20
 
 # include <unistd.h>
 # include <stdlib.h>
